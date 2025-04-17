@@ -29,8 +29,12 @@ jobs:
         run: launchable record build --name ${{ github.run_id }}
       - name: Compile
         run: mvn compile
+      - name: launchable subset
+        run: |
+          launchable subset --observation --target 50% maven src/test/java > launchable-subset.txt
+          cat launchable-subset.txt
       - name: Test
-        run: mvn test
+        run: mvn test -Dsurefire.includesFile=launchable-subset.txt
       - name: Launchable record tests
         if: always()
         run: launchable record tests maven ./**/target/surefire-reports
