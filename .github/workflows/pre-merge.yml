@@ -31,7 +31,7 @@ jobs:
         run: mvn compile
       - name: launchable subset
         run: |
-          launchable subset --observation --target 50% maven src/test/java > launchable-subset.txt
+          launchable subset --target 50% maven src/test/java > launchable-subset.txt
           cat launchable-subset.txt
       - name: Test
         run: mvn test -Dsurefire.includesFile=launchable-subset.txt
